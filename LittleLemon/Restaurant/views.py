@@ -17,9 +17,13 @@ class UserViewSet(viewsets.ModelViewSet):
    permission_classes = [permissions.IsAuthenticatedOrReadOnly] 
 
 class MenuItemView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:  # GET, HEAD, OPTIONS
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticated()]
 
 class SingleMenuItemView (generics.RetrieveUpdateAPIView):
     queryset = Menu.objects.all()

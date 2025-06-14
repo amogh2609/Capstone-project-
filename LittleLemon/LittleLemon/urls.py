@@ -21,13 +21,13 @@ from Restaurant import views
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = DefaultRouter()
-router.register(r'booking/tables', views.BookingViewSet , basename='booking')
-router.register(r'users', views.UserViewSet)
+router.register(r'booking', views.BookingViewSet , basename='booking')
+router.register(r'users/', views.UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-token-auth/', obtain_auth_token),
-    path('restaurant/',include('Restaurant.urls')),
+    path('api/',include('Restaurant.urls')),
     path('api/', include(router.urls)),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
